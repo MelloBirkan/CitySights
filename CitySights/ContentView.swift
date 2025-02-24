@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, friend!")
-        }
-        .padding()
+  @State private var query: String = ""
+  var body: some View {
+    HStack {
+      TextField("What're you looking for?", text: $query)
+        .textFieldStyle(.roundedBorder)
+      
+      Button("Go") {
+        // TODO: implemente query
+      }
     }
+    .padding()
+  }
 }
 
 #Preview {
-    ContentView()
+  ContentView()
 }
