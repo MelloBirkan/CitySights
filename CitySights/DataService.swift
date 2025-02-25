@@ -10,11 +10,11 @@ import Foundation
 struct DataService {
   let apiKey = Bundle.main.infoDictionary?["API_KEY"] as? String
   
-  func businessSearch() async {
+  func businessSearch() async -> [Business] {
 //    Check if api key exists
     guard let apiKey else {
       print("API key not found.")
-      return
+      return [Business]()
     }
 //    Create URL
     if let url = URL(string: "https://api.yelp.com/v3/businesses/search?latitude=\("35.665517")&longitude=\("139.770398")&categories=\("restaurants")&limit=\("10")") {
@@ -26,11 +26,15 @@ struct DataService {
       do {
         let (data, response) = try await URLSession.shared.data(for: request)
         
-        print(data)
-        print(response)
+//        Parse json
+        let decoder = JSONDecoder()
+        let result = try decoder.decode(BusinessesSearch.self, from: data)
+        
+        return result.businesses
       } catch {
         print(error)
       }
     }
+    return [Business]()
   }
 }
