@@ -27,7 +27,7 @@ struct ContentView: View {
     }
     .padding()
     .onAppear {
-      print(Bundle.main.infoDictionary?["API_KEY"] as? String)
+      print(Bundle.main.infoDictionary?["API_KEY"] as? String ?? "Sem valor")
     }
   }
 }
