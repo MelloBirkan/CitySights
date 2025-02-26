@@ -7,22 +7,40 @@
 
 import Foundation
 
-struct Business: Decodable, Identifiable{
+struct Business: Decodable, Identifiable {
   let id: String?
   let alias: String?
   let name: String?
   let categories: [Category]
   let coordinates: Coordinate?
-  let display_phone: String?
+  let displayPhone: String?
   let phone: String?
   let distance: Double?
-  let image_url: String?
-  let is_closed: Bool?
+  let imageUrl: String?
+  let isClosed: Bool?
   let location: Location?
   let price: String?
   let rating: Double?
-  let review_count: Int?
+  let reviewCount: Int?
   let url: String?
+
+  enum CodingKeys: String, CodingKey {
+    case id
+    case alias
+    case name
+    case categories
+    case coordinates
+    case phone
+    case displayPhone = "display_phone"
+    case distance
+    case imageUrl = "image_url"
+    case isClosed = "is_closed"
+    case location
+    case price
+    case rating
+    case reviewCount = "review_count"
+    case url
+  }
 }
 
 struct Category: Decodable {
@@ -36,8 +54,18 @@ struct Location: Decodable {
   let address3: String?
   let city: String?
   let country: String?
-  let display_address: [String]?
+  let displayAddress: [String]?
   let state: String?
-  let zip_code: String?
-}
+  let zipCode: String?
 
+  enum CodingKeys: String, CodingKey {
+    case address1
+    case address2
+    case address3
+    case city
+    case country
+    case displayAddress = "display_address"
+    case state
+    case zipCode = "zip_code"
+  }
+}

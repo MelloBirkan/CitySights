@@ -24,7 +24,7 @@ struct DataService {
       request.addValue("application/json", forHTTPHeaderField: "accept")
       //    Send Request
       do {
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, _) = try await URLSession.shared.data(for: request)
         
 //        Parse json
         let decoder = JSONDecoder()
