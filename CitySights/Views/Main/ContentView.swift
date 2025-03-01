@@ -42,7 +42,7 @@ struct ContentView: View {
               
               Text(calculateTimeInMinutes(distance: business.distance))
                 .foregroundStyle(.secondary)
-                .font(.caption)
+                .font(.caption2)
             }
             Spacer()
             
