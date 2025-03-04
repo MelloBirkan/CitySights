@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BusinessDetailView: View {
-  let business: Business?
+    @Environment(BusinessModel.self) private var businessModel
 
   fileprivate func LabelBusinessDetail(text: String, systemImage: String) -> some View {
     return VStack {
@@ -27,6 +27,8 @@ struct BusinessDetailView: View {
   }
 
   var body: some View {
+      let business = businessModel.selectedBusiness
+      
     VStack(alignment: .leading) {
       ZStack(alignment: .bottomTrailing) {
         Image("businessPlaceholder")
@@ -92,5 +94,6 @@ struct BusinessDetailView: View {
 }
 
 #Preview {
-  BusinessDetailView(business: nil)
+  BusinessDetailView()
+        .environment(BusinessModel())
 }
