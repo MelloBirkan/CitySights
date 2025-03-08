@@ -1,37 +1,19 @@
 //
-//  ContentView.swift
+//  ListView.swift
 //  CitySights
 //
-//  Created by Marcello Gonzatto Birkan on 21/02/25.
+//  Created by Marcello Gonzatto Birkan on 07/03/25.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct ListView: View {
     @Environment(BusinessModel.self) private var businessModel
-    
+
     var body: some View {
-        @Bindable var businessModel = businessModel
-        
-        VStack {
-            HStack {
-                
-                TextField("What're you looking for?", text: $businessModel.query)
-                    .textFieldStyle(.roundedBorder)
-                
-                Button {
-                    // TODO: implemente query
-                } label: {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(.white)
-                        .padding(10)
-                        .background(Color.blue)
-                        .cornerRadius(10)
-                        .shadow(radius: 2)
-                }
-            }
-            .padding()
-            
+        ZStack {
+            Color(.systemBackground)
+
             List {
                 ForEach(businessModel.businesses) { business in
                     HStack {
@@ -39,13 +21,13 @@ struct ContentView: View {
                         VStack(alignment: .leading) {
                             Text(business.name ?? "Restaurant Name")
                                 .font(.headline)
-                            
+
                             Text(calculateTimeInMinutes(distance: business.distance))
                                 .foregroundStyle(.secondary)
                                 .font(.caption2)
                         }
                         Spacer()
-                        
+
                         Image("regular_\(round(business.rating ?? 0))")
                     }
                     .onTapGesture {
@@ -54,15 +36,11 @@ struct ContentView: View {
                 }
             }
             .listStyle(.plain)
+            .scrollIndicators(.hidden)
         }
-        .sheet(item: $businessModel.selectedBusiness, content: { business in
-            BusinessDetailView()
-        })
-        .onAppear {
-            businessModel.getBusinesses()
-        }
+        .clipShape(.rect(cornerRadius: 12))
     }
-    
+
     // Função para converter distância em metros para tempo em minutos
     // Assumindo velocidade de caminhada média de 5km/h ou aproximadamente 83 metros por minuto
     func calculateTimeInMinutes(distance: Double?) -> String {
@@ -71,13 +49,13 @@ struct ContentView: View {
         }
         let walkingSpeedMetersPerMinute: Double = 83
         let timeInMinutes = distance / walkingSpeedMetersPerMinute
-        
+
         // Formato para exibir apenas um decimal
         return String(format: "%.0f min away walking", timeInMinutes)
     }
 }
 
 #Preview {
-    ContentView()
+    ListView()
         .environment(BusinessModel())
 }
