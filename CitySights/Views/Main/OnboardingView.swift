@@ -8,24 +8,41 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @State private var currentScreen: Int = 0
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
-        TabView {
+        TabView(selection: $currentScreen) {
             onboardingZStack(color: Color(red: 111 / 255, green: 154 / 255, blue: 189 / 255), title: "Welcome to City Sights!", description: "City Sights helps you find the best of the city!") {
-                // TODO:
+                withAnimation {
+                    currentScreen = 1
+                }
             }
+            .tag(0)
 
             onboardingZStack(color: Color(red: 139 / 255, green: 166 / 255, blue: 65 / 255), title: "Discover your city", description: "We'll show the best restaurants, venues, and more, based on your location.") {
-                // TODO:
+                dismiss()
             }
+            .tag(1)
         }
+        .background(
+            Group {
+                if currentScreen == 0 {
+                    Color(red: 111 / 255, green: 154 / 255, blue: 189 / 255)
+                        .ignoresSafeArea()
+                } else {
+                    Color(red: 139 / 255, green: 166 / 255, blue: 65 / 255)
+                        .ignoresSafeArea()
+                }
+            }
+        )
         .tabViewStyle(.page)
+        .animation(.easeInOut, value: currentScreen)
         .ignoresSafeArea()
     }
 
-    func onboardingZStack(color: Color, title: String, description: String, buttonAction: @escaping () -> Void) -> some View {
+    fileprivate func onboardingZStack(color _: Color, title: String, description: String, buttonAction: @escaping () -> Void) -> some View {
         ZStack {
-            color
-
             VStack(alignment: .center, spacing: 5) {
                 Spacer()
                 Spacer()
