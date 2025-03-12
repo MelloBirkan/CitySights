@@ -20,6 +20,7 @@ struct CitySightsApp: App {
                     onboardingShown = false
                 } content: {
                     OnboardingView()
+                        .environment(businessModel)
                 }
 
         }

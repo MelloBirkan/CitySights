@@ -10,6 +10,7 @@ import SwiftUI
 struct OnboardingView: View {
     @State private var currentScreen: Int = 0
     @Environment(\.dismiss) private var dismiss
+    @Environment(BusinessModel.self) private var businessModel
 
     var body: some View {
         TabView(selection: $currentScreen) {
@@ -21,6 +22,7 @@ struct OnboardingView: View {
             .tag(0)
 
             onboardingZStack(color: Color(red: 139 / 255, green: 166 / 255, blue: 65 / 255), title: "Discover your city", description: "We'll show the best restaurants, venues, and more, based on your location.") {
+                businessModel.getUserLocation()
                 dismiss()
             }
             .tag(1)
@@ -86,4 +88,5 @@ struct OnboardingView: View {
 
 #Preview {
     OnboardingView()
+        .environment(BusinessModel())
 }
