@@ -47,7 +47,7 @@ class BusinessModel: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        // TODO: Detect if user allowed, then request location
+        // Detect if user allowed, then request location
         if manager.authorizationStatus == .authorizedWhenInUse {
             currentUserLocation = nil
             manager.requestLocation()
@@ -55,12 +55,10 @@ class BusinessModel: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        currentUserLocation = locations.last?.coordinate
-        
-        if currentUserLocation != nil {
+        if currentUserLocation == nil {
+            currentUserLocation = locations.last?.coordinate
             getBusinesses()
         }
-        
         manager.stopUpdatingLocation()
     }
 }
