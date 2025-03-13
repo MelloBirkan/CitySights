@@ -28,7 +28,6 @@ struct ListView: View {
                                 ProgressView()
                                     .frame(width: 60, height: 60)
                             }
-                            
                         } else {
                             Image(.foodPlaceholder)
                         }
@@ -54,7 +53,6 @@ struct ListView: View {
         }
         .clipShape(.rect(cornerRadius: 12))
     }
-    
     // Função para converter distância em metros para tempo em minutos
     // Assumindo velocidade de caminhada média de 5km/h ou aproximadamente 83 metros por minuto
     func calculateTimeInMinutes(distance: Double?) -> String {
