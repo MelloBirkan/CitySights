@@ -26,16 +26,18 @@ struct DataService {
             lat = userLocation.latitude
             lon = userLocation.longitude
         }
+        
         let requestLimit: Int = 30
         var endpoint = "https://api.yelp.com/v3/businesses/search?latitude=\(lat)&longitude=\(lon)&limit=\(requestLimit)"
-        if let query = query {
-            if let query = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-                endpoint.append("&term=\(query)")
+        
+        if query != nil && query != "" {
+                if let query = query!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                    endpoint.append("&term=\(query)")
             }
         }
 
-        if let options = options {
-            endpoint.append("&attributes=\(options)")
+        if options != nil && options != "" {
+                endpoint.append("&attributes=\(options!)")
         }
 
         if let category = category {
