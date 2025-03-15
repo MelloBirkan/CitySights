@@ -10,22 +10,6 @@ import SwiftUI
 struct BusinessDetailView: View {
     @Environment(BusinessModel.self) private var businessModel
     
-    fileprivate func labelBusinessDetail(text: String, systemImage: String) -> some View {
-        return VStack {
-            HStack {
-                Label(text, systemImage: systemImage)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-                
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .foregroundStyle(.blue)
-            }
-            Divider()
-        }
-    }
-    
     var body: some View {
         let business = businessModel.selectedBusiness
         
@@ -83,8 +67,8 @@ struct BusinessDetailView: View {
                 
                 Divider()
                 
-                labelBusinessDetail(text: business?.displayPhone ?? "No phone", systemImage: "phone")
-                labelBusinessDetail(text: (business?.url ?? "No URL"), systemImage: "globe")
+                labelBusinessDetail(text: business?.displayPhone ?? "No phone", systemImage: "phone", url: URL(string: "tel:\(business?.phone ?? "")"))
+                labelBusinessDetail(text: (business?.url ?? "No URL"), systemImage: "globe", url: URL(string: business?.url ?? ""))
                 labelBusinessDetail(text: (business?.reviewCount ?? 0).description, systemImage: "bubble.left.and.text.bubble.right.fill")
                 
                 Spacer()
@@ -103,6 +87,31 @@ struct BusinessDetailView: View {
             }
             .padding(.horizontal)
             .padding(.vertical, 5)
+        }
+    }
+    fileprivate func labelBusinessDetail(text: String, systemImage: String, url: URL? = nil) -> some View {
+        return VStack {
+            HStack {
+                Group {
+                    if let url = url {
+                        Link(destination: url) {
+                            Label(text, systemImage: systemImage)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
+                        }
+                    } else {
+                        Label(text, systemImage: systemImage)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                    }
+                }
+                
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(.blue)
+            }
+            Divider()
         }
     }
 }
