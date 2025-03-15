@@ -10,7 +10,7 @@ import SwiftUI
 struct OnboardingView: View {
     @State private var currentScreen: Int = 0
     @Environment(\.dismiss) private var dismiss
-    @Environment(BusinessModel.self) private var businessModel
+    @Environment(BusinessViewModel.self) private var businessModel
 
     var body: some View {
         TabView(selection: $currentScreen) {
@@ -88,5 +88,5 @@ struct OnboardingView: View {
 
 #Preview {
     OnboardingView()
-        .environment(BusinessModel())
+        .environment(BusinessViewModel())
 }

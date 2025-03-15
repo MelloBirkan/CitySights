@@ -10,7 +10,7 @@ import Observation
 import SwiftUI
 
 @Observable
-class BusinessModel: NSObject, CLLocationManagerDelegate {
+class BusinessViewModel: NSObject, CLLocationManagerDelegate {
     var businesses: [Business] = []
     var selectedBusiness: Business?
 

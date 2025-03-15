@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Environment(BusinessModel.self) private var businessModel
+    @Environment(BusinessViewModel.self) private var businessModel
     
     @State private var selectedTab = 0
     @State private var showPopular: Bool = false
@@ -87,6 +87,19 @@ struct HomeView: View {
             .pickerStyle(.segmented)
             
             Group {
+                if businessModel.locationManager.authorizationStatus == .denied {
+                    Spacer()
+                    
+                    Text("Please allow location services for this app to use the map view")
+                    
+                    Button("Open Privacy Settings") {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                    
+                    Spacer()
+                }
                 if selectedTab == 0 {
                     ListView()
                         .shadow(radius: 10)
@@ -126,5 +139,5 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
-        .environment(BusinessModel())
+        .environment(BusinessViewModel())
 }
