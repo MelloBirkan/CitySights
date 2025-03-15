@@ -108,8 +108,10 @@ struct BusinessDetailView: View {
                 
                 Spacer()
                 
-                Image(systemName: "chevron.right")
-                    .foregroundStyle(.blue)
+                if url != nil {
+                    Image(systemName: "chevron.right")
+                        .foregroundStyle(.blue)
+                }
             }
             Divider()
         }
